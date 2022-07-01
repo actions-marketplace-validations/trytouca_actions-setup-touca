@@ -1,0 +1,14 @@
+name: 'Run Touca Tests'
+description: 'Runs Touca tests'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+    - run: pip install touca
+      shell: bash
+branding:
+  icon: 'terminal'
+  color: 'blue'
