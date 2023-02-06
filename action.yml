@@ -1,5 +1,12 @@
-name: 'Run Touca Tests'
-description: 'Runs Touca tests'
+name: 'Touca - Setup Touca CLI'
+description: 'Sets up Touca CLI in your GitHub Actions workflow'
+inputs:
+  api_url:
+    description: 'API URL of Touca Cloud/Enterprise instance to set in your Touca configuration profile.'
+    required: false
+  api_key:
+    description: 'API Key for Touca Cloud/Enterprise instance to set in your Touca configuration profile.'
+    required: false
 runs:
   using: "composite"
   steps:
@@ -8,6 +15,12 @@ runs:
         python-version: '3.10'
         cache: 'pip'
     - run: pip install touca
+      shell: bash
+    - run: touca config set api_key=${{ inputs.api_key }}
+      if: inputs.api_key != ''
+      shell: bash
+    - run: touca config set api_url=${{ inputs.api_url }}
+      if: inputs.api_url != ''
       shell: bash
 branding:
   icon: 'terminal'
